@@ -34,17 +34,10 @@ The models are evaluated on the VehicleID / VeRi-776 (mention yours) dataset. Pl
 
 💻 Installation & Usage
 1. Clone the Repository
-Bash
-
 git clone https://github.com/username/vehicle-reid-onn.git
 cd vehicle-reid-onn
 2. Install Dependencies
-Bash
-
 pip install -r requirements.txt
 3. Run Evaluation
 The following command will load the pre-trained weights, perform inference on the test set, and generate all metrics and visual plots (t-SNE, Top-5 Rankings):
-
-Bash
-
 python evaluation.py --weights weights/best_model.weights.h5 --data_dir ./data/te
