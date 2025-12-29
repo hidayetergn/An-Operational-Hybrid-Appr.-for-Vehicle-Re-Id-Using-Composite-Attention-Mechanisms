@@ -1,4 +1,4 @@
-# An-Operational-Hybrid-Appr.-for-Vehicle-Re-Id-Using-Composite-Attention-Mechanisms
+# An Operational Hybrid Approach for Vehicle Re-Id Using Composite Attention Mechanisms
 Vehicle Re-Identification (V-ReID) is a fundamental yet challenging task in Intelligent Transportation Systems, particularly in scenarios involving non-overlapping camera networks and Unmanned Aerial Vehicle (UAV) surveillance. Traditional Convolutional Neural Networks (CNNs) rely predominantly on linear operations for feature extraction.
 
 Official implementation of the proposed Vehicle Re-Identification (Re-ID) framework. This repository provides the evaluation scripts and pre-trained weights to reproduce the results presented in the paper.
