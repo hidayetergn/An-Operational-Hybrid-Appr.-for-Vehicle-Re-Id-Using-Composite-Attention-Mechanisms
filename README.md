@@ -61,14 +61,6 @@ project_root/
 * PyTorch ≥ 2.0
 * CUDA (A100 GPU, for GPU acceleration)
 
-## 🚀 Installation
-
-1. Clone the repository:
-   ```bash
-   git clone <REPO_URL>
-   cd <REPO_NAME>
-
----
 
 ## 📁 Dataset Preparation
 
@@ -121,3 +113,38 @@ The models are evaluated on the VeRi-776 dataset. Please download the dataset fr
 
 The following command will load the pre-trained weights, perform inference on the test set, and generate all metrics and visual plots (t-SNE, Top-5 Rankings):
 python evaluation.py --weights weights/best_model.weights.h5 --data_dir ./data/te
+
+## 🚀 Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/hidayetergn/An-Operational-Hybrid-Appr.-for-Vehicle-Re-Id-Using-Composite-Attention-Mechanisms.git
+   cd An-Operational-Hybrid-Appr.-for-Vehicle-Re-Id-Using-Composite-Attention-Mechanisms.git
+
+---
+
+2. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+🛠️ Usage
+Step 1: Prepare Data. Before running the inference, ensure your label list is formatted correctly. Use the prepare_data.py script to convert your raw test list into the required format.
+```bash
+python prepare_data.py --input "path/to/raw_test_list.txt" --output "test_list.txt" --image_dir "path/to/images"
+```
+--input: Path to your original test list file.
+--image_dir: (Optional) Directory of images to verify existence.
+
+Step 2: Run Inference
+Run the inference.py script to extract features and identify the hardest negative pairs (the highest similarity between different IDs).
+```bash
+python inference.py --image_dir "path/to/images" --test_list "test_list.txt" --model_dir "exported_model"
+```
+--image_dir: Path to the folder containing test images.
+--model_dir: Path to the provided exported_model folder.
+--output: Name of the output CSV file (default: hardest_pairs.csv).
+
+📊 Output
+The script will generate a CSV file (e.g., hardest_pairs.csv) containing the top 50 pairs of vehicle IDs that the model identifies as most similar.
+This shows the Rank1 and Rank-5 matches of randomly selected images from the test folder.
+![Rank1 and Rank-5 Matches Output](assets/result1.png)
