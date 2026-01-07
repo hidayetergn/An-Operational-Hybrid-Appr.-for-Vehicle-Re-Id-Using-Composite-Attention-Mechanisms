@@ -1,0 +1,38 @@
+# ------------------------------------------------------------------
+# OPERATIONAL HYBRID NETWORK - INFERENCE CONFIG
+# ------------------------------------------------------------------
+
+SYSTEM:
+  DEVICE: "cuda"  # TensorFlow otomatik kullanır ama log için kalsın
+  SEED: 42
+
+# ------------------------------------------------------------------
+# INPUT PATHS (Veri hazırlığı için)
+# ------------------------------------------------------------------
+INPUT_PATHS:
+  RAW_ZIP_FILE: ".venv/Dataset/image_test.zip"
+  RAW_LIST_FILE: ".venv/Dataset/test_list.txt"
+
+# ------------------------------------------------------------------
+# DATASET PATHS (Otomatik oluşanlar)
+# ------------------------------------------------------------------
+DATASET:
+  NAME: "VeRi"
+  IMAGE_DIR: ".venv/Dataset/VeRi/images/image_test"
+  PROCESSED_LIST: ".venv/Dataset/VeRi/test_list.txt"
+  HEIGHT: 224 # EfficientNetB4 standardı
+  WIDTH: 224
+
+# ------------------------------------------------------------------
+# MODEL SETTINGS
+# ------------------------------------------------------------------
+MODEL:
+  # .h5 dosyası yerine klasör yolunu veriyoruz
+  MODEL_DIR: "saved_model"
+
+# ------------------------------------------------------------------
+# TEST PARAMETERS
+# ------------------------------------------------------------------
+TEST:
+  BATCH_SIZE: 32
+  TOP_K: [1, 5, 10]
