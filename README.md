@@ -1,6 +1,3 @@
-# An Operational Hybrid Approach for Vehicle Re-Id Using Composite Attention Mechanisms
-Vehicle Re-Identification (V-ReID) is a fundamental yet challenging task in Intelligent Transportation Systems, particularly in scenarios involving non-overlapping camera networks and Unmanned Aerial Vehicle (UAV) surveillance. Traditional Convolutional Neural Networks (CNNs) rely predominantly on linear operations for feature extraction.
-
 Official implementation of the proposed Vehicle Re-Identification (Re-ID) framework. This repository contains the inference code and the pre-trained model for the Vehicle Re-Identification method described in the manuscript. The model is provided in the TensorFlow `SavedModel` format, which encapsulates the architecture (including custom layers) and the trained weights.
 
 
@@ -8,9 +5,10 @@ Official implementation of the proposed Vehicle Re-Identification (Re-ID) framew
 
 The proposed framework extracts discriminative embeddings by combining:
 
-* We have used the EfficientNet B4 model instead of the ResNet model, which uses a backbone network.
-* A Global-Fusion Attention Module (GFAM)
-* An Operational Block Attention Module (OBAM)
+* Traditional CNNs struggle to capture high-frequency spatial variations in vehicle identities due to the linear nature of standard convolutions. This repository contains the source code for the **Operational Hybrid Network**, which introduces:
+1.  **Operational Neural Networks (ONN):** Replacing static weights with learnable Taylor-series nodal operations.
+2.  **GCAM (Global Context Awareness Module):** A non-linear self-attention mechanism for global topology.
+3.  **OBAM (Operational Block Attention Module):** For suppressing environmental clutter.
 
 All features are pooled using **Generalized Mean (GeM) pooling**, L2-normalized, and concatenated into a single embedding vector for retrieval-based vehicle re-identification.
 # Vehicle Re-Identification Model Evaluation
@@ -33,24 +31,21 @@ All features are pooled using **Generalized Mean (GeM) pooling**, L2-normalized,
 ## 📂 Repository Structure
 
 ```text
-project_root/
-│
-├── main.py
-├── config.yaml
-├── requirements.txt
-├── README.md
-│
-├── models/
-│   ├── __init__.py
-│   ├── gem.py
-│
+Operational-Hybrid-ReID/
+├── configs/
+│   └── vru_test_config.yaml    
 ├── data/
-│   ├── __init__.py
-│   └── data_utils.py
-│
-└── visualization/
-    ├── __init__.py
-    └── visualize.py
+│   └── README.md              
+├── weights/
+│   └── best_model_vru.pth      # Eğitilmiş model (Git LFS veya Drive linki)
+├── utils/
+│   ├── metrics.py              # CMC, mAP hesaplama fonksiyonları
+│   └── visualizer.py           # Grad-CAM çizim araçları
+├── test.py                     # Tüm veri setinde mAP ölçen script
+├── demo.py                     # Tek resim üzerinde görselleştirme yapan script
+├── requirements.txt
+├── LICENSE
+└── README.md
 ```
 
 ## ⚙️ Environment Setup
