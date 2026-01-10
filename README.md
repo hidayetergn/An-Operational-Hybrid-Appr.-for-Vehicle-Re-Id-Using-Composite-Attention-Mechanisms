@@ -15,7 +15,7 @@ All features are pooled using **Generalized Mean (GeM) pooling**, L2-normalized,
 
 ## 📂 Repository Structure
 
-- `exported_model/`: Contains the pre-trained model graph and weights (.pb and variables).
+- `saved_model/`: Contains the pre-trained model graph and weights (.pb and variables).
 - `prepare_data.py`: Helper script to format the dataset list for testing.
 - `inference.py`: Main script to run feature extraction and similarity analysis.
 - `requirements.txt`: List of dependencies.
@@ -25,26 +25,22 @@ All features are pooled using **Generalized Mean (GeM) pooling**, L2-normalized,
 
 * **Backbone**: EfficientNet B4
 * **Pooling**: Details will be shared along with the source code once the paper is accepted.
-* **GFAM**: Details will be shared along with the source code once the paper is accepted.
+* **GCAM**: Details will be shared along with the source code once the paper is accepted.
 * **OBAM**:    Details will be shared along with the source code once the paper is accepted.
 
 ## 📂 Repository Structure
 
 ```text
 Operational-Hybrid-ReID/
-├── configs/
-│   └── vru_test_config.yaml    
+├── config.yaml    
 ├── data/
 │   └── README.md              
-├── weights/
-│   └── best_model_vru.pth      # Eğitilmiş model (Git LFS veya Drive linki)
+├── saved_model     # Pre-trained model
 ├── utils/
-│   ├── metrics.py              # CMC, mAP hesaplama fonksiyonları
-│   └── visualizer.py           # Grad-CAM çizim araçları
-├── test.py                     # Tüm veri setinde mAP ölçen script
-├── demo.py                     # Tek resim üzerinde görselleştirme yapan script
+│   ├── metrics.py       
+│   └── visualizer.py    
+├── inference.py                  
 ├── requirements.txt
-├── LICENSE
 └── README.md
 ```
 
@@ -59,7 +55,7 @@ Operational-Hybrid-ReID/
 
 ## 📁 Dataset Preparation
 
-The dataset should follow the structure below:
+The VeRi-776 dataset should follow the structure below:
 
 ```text
 image_test/
@@ -98,16 +94,10 @@ Embedding Quality: Representation cosine distance and similarity of the Hardest 
 
 Discriminative Power: Inter-class to Intra-class distance ratios.
 
-Pre-trained Weights
-Download the weights from the following link and place them in the weights/ directory:
-
-Download best_model.weights.h5
-
 Dataset
 The models are evaluated on the VeRi-776 dataset. Please download the dataset from here: https://www.kaggle.com/datasets/abhyudaya12/veri-vehicle-re-identification-dataset
 
-The following command will load the pre-trained weights, perform inference on the test set, and generate all metrics and visual plots (t-SNE, Top-5 Rankings):
-python evaluation.py --weights weights/best_model.weights.h5 --data_dir ./data/te
+Load the pre-trained weights, perform inference on the test set, and generate all metrics and visualizations (Hardest 50 Negatives, Top-5 Rankings).
 
 ## 🚀 Installation
 
@@ -125,16 +115,14 @@ pip install -r requirements.txt
 🛠️ Usage
 Step 1: Prepare Data. Before running the inference, ensure your label list is formatted correctly. Use the prepare_data.py script to convert your raw test list into the required format.
 ```bash
-python prepare_data.py --input "path/to/raw_test_list.txt" --output "test_list.txt" --image_dir "path/to/images"
+python prepare_data.py --input "path/to/test_list.txt" --output "test_list.txt" --image_dir "path/to/images"
 ```
 --input: Path to your original test list file.
 --image_dir: (Optional) Directory of images to verify existence.
 
 Step 2: Run Inference
 Run the inference.py script to extract features and identify the hardest negative pairs (the highest similarity between different IDs).
-```bash
-python inference.py --image_dir "path/to/images" --test_list "test_list.txt" --model_dir "exported_model"
-```
+
 --image_dir: Path to the folder containing test images.
 --model_dir: Path to the provided exported_model folder.
 --output: Name of the output CSV file (default: hardest_pairs.csv).
