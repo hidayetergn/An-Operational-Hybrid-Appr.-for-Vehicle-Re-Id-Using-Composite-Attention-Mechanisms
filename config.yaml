@@ -1,0 +1,39 @@
+# ------------------------------------------------------------------
+# OPERATIONAL HYBRID NETWORK - INFERENCE CONFIG
+# ------------------------------------------------------------------
+
+SYSTEM:
+  DEVICE: "cuda"  # GPU varsa otomatik kullanılır
+  SEED: 42
+
+# ------------------------------------------------------------------
+# INPUT PATHS (Senin elindeki dosya yapısına göre)
+# ------------------------------------------------------------------
+INPUT_PATHS:
+  # test_list.txt dosyasının tam yolu
+  RAW_LIST_FILE: ".venv/Dataset/VeRi/test_list.txt"
+
+  # image_test klasörünün yolu
+  RAW_ZIP_FILE: ".venv/Dataset/VeRi/images/image_test"
+
+# ------------------------------------------------------------------
+# MODEL SETTINGS
+# ------------------------------------------------------------------
+MODEL:
+  # Daha önce oluşturduğumuz saved_model klasörünün adı
+  MODEL_DIR: "saved_model"
+
+# ------------------------------------------------------------------
+# DATASET PARAMETERS (VeRi-776 Standartları)
+# ------------------------------------------------------------------
+DATASET:
+  NAME: "VeRi"
+  HEIGHT: 224
+  WIDTH: 224
+
+# ------------------------------------------------------------------
+# TEST PARAMETERS
+# ------------------------------------------------------------------
+TEST:
+  BATCH_SIZE: 32
+  TOP_K: [1, 5, 10]
