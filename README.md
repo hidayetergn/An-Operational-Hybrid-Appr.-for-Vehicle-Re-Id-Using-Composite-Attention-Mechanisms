@@ -33,13 +33,14 @@ All features are pooled using **Generalized Mean (GeM) pooling**, L2-normalized,
 ```text
 Operational-Hybrid-ReID/
 ├── config.yaml    
-├── data/
-│   └── README.md              
+├── dataset/
+│   ├── image_test.zip      <-- Downloaded raw test dataset
+│   └── test_list.txt       <-- Image test list           
 ├── saved_model     # Pre-trained model
 ├── utils/
-│   ├── metrics.py       
-│   └── visualizer.py    
-├── inference.py                  
+│   ├──__init__.py       
+│   └── loader.py    
+├── evaluation.py                  
 ├── requirements.txt
 └── README.md
 ```
@@ -115,21 +116,20 @@ pip install -r requirements.txt
 🛠️ Usage
 Step 1: Prepare Data. Before running the inference, ensure your label list is formatted correctly. Use the prepare_data.py script to convert your raw test list into the required format.
 ```bash
-python prepare_data.py --input "path/to/test_list.txt" --output "test_list.txt" --image_dir "path/to/images"
+python prepared_data.py
 ```
---input: Path to your original test list file.
---image_dir: (Optional) Directory of images to verify existence.
+
 
 Step 2: Run Inference
-Run the inference.py script to extract features and identify the hardest negative pairs (the highest similarity between different IDs).
-
---image_dir: Path to the folder containing test images.
---model_dir: Path to the provided exported_model folder.
---output: Name of the output CSV file (default: hardest_pairs.csv).
+Run the evaluation.py script to extract features and identify the hardest negative pairs (the highest similarity between different IDs).
+```bash
+python evaluation.py
+```
+When the code runs successfully, you will see a confirmation message in the terminal similar to the following: ✅✅ ALL ANALYSES COMPLETED SUCCESSFULLY ✅✅
 
 ## 📊 Model Performance & Analysis
 
-The model has been evaluated on the dataset to identify hard-to-distinguish vehicle pairs. Below is a sample of the "Hardest Negative Pairs" where the model calculates high similarity scores for different vehicle IDs.
+The model has been evaluated on the dataset to identify hard-to-distinguish vehicle pairs. The model was evaluated on the dataset to identify difficult-to-distinguish vehicle pairs. The following outputs are available in these test results: "Hardest 50 Vehicle ID Table", "Hardest 50 Vehicle Failures of Model", and "Hardest 50 Vehicle Analysis". Other test results and metrics will be shared here along with all training and test code after our article is published.
 
 ### Top Hardest Pairs (Sample)
 The following table lists pairs of IDs with the highest cosine similarity scores, indicating difficult samples for Re-ID tasks.
@@ -144,8 +144,3 @@ The following table lists pairs of IDs with the highest cosine similarity scores
 | 50 | 0772 | 0775 | 0.7540 | `0772_c001_...jpg` | `0775_c004_...jpg` |
 
 > *Note: Full list of 50 hardest pairs is available in the generated `hardest_pairs.csv` file after inference.*
-
-### Visual Examples
-Below are examples of query images and their retrieved results using the proposed model architecture.
-This shows the Rank1 and Rank-5 matches of randomly selected images from the test folder.
-![Rank1 and Rank-5 Matches Output](assets/results1.png)
