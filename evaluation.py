@@ -127,8 +127,6 @@ def run_hard_reid_analysis(infer, df_full):
     dists = cosine_distances(q_feats, g_feats)
     results = []
 
-    print(f"🔍 Analyzing matches (Skipping similarity > {SKIP_SIMILARITY_THRESHOLD})...")
-
     for i in range(len(q_lbls)):
         sorted_idx = np.argsort(dists[i])
         q_filename = os.path.basename(q_paths[i])
@@ -446,4 +444,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
